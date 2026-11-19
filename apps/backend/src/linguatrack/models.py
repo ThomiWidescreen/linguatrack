@@ -59,6 +59,7 @@ class Lesson(IDMixin, Base):
     text: Mapped[str] = mapped_column(Text)
     source: Mapped[str] = mapped_column(String(30), default="manual")
     occurred_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+    bridge_languages: Mapped[list[str]] = mapped_column(JSONB, default=list, server_default="[]")
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=now)
     revision: Mapped[int] = mapped_column(default=1)
     published_run_id: Mapped[UUID | None]  # validated under session/track locks by publisher
@@ -89,7 +90,8 @@ class Run(IDMixin, Base):
     review_required: Mapped[bool] = mapped_column(default=False)
     error_code: Mapped[str | None] = mapped_column(String(80))
     model: Mapped[str]
-    extractor_version: Mapped[str] = mapped_column(default="lesson-v2")
+    extractor_version: Mapped[str] = mapped_column(default="lesson-v3")
+    bridge_languages: Mapped[list[str]] = mapped_column(JSONB, default=list, server_default="[]")
     resolver_version: Mapped[str] = mapped_column(default="lexical-v2")
     projector_version: Mapped[str] = mapped_column(default="counts-v1")
     provider_response_id: Mapped[str | None]

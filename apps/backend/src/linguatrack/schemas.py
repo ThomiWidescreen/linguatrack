@@ -1,5 +1,6 @@
 import hashlib
 import json
+import re
 from datetime import datetime
 from typing import Literal
 from uuid import UUID
@@ -32,6 +33,41 @@ Dimension = Literal[
 
 class StrictModel(BaseModel):
     model_config = ConfigDict(extra="forbid")
+
+
+class BridgeContext(StrictModel):
+    bridge_languages: list[str] = Field(
+        default_factory=list,
+        max_length=5,
+        description=(
+            "Idiomas puente de las explicaciones/traducciones, por ejemplo ['es', 'en']. "
+            "Vacío permite inferirlos. Solo el idioma objetivo del track aporta conocimiento."
+        ),
+        examples=[["es", "en"]],
+    )
+
+    @field_validator("bridge_languages")
+    @classmethod
+    def language_tags(cls, values):
+        result = []
+        for value in values:
+            value = value.strip()
+            if not re.fullmatch(r"[A-Za-z]{2,3}(?:-[A-Za-z0-9]{2,8})*", value):
+                raise ValueError("Use language tags such as es, en, pt-BR or zh-Hans")
+            parts = value.split("-")
+            normalized = [parts[0].lower()]
+            for part in parts[1:]:
+                if len(part) == 2 and part.isalpha():
+                    normalized.append(part.upper())
+                elif len(part) == 4 and part.isalpha():
+                    normalized.append(part.title())
+                else:
+                    normalized.append(part.lower())
+            tag = "-".join(normalized)
+            if tag in result:
+                raise ValueError("Duplicate bridge language")
+            result.append(tag)
+        return result
 
 
 class ExtractedEvidence(StrictModel):
@@ -107,7 +143,7 @@ class TrackCreate(StrictModel):
     language_tag: str = Field(examples=["ms"])
 
 
-class SessionCreate(StrictModel):
+class SessionCreate(BridgeContext):
     text: str = Field(
         min_length=1,
         examples=[
@@ -135,6 +171,17 @@ class SessionCreate(StrictModel):
 
 class ReprocessRequest(StrictModel):
     expected_revision: int = Field(ge=1)
+    bridge_languages: list[str] | None = Field(
+        default=None,
+        max_length=5,
+        description="Omitir/null conserva el contexto previo; [] vuelve a inferencia automática.",
+        examples=[["es", "en"]],
+    )
+
+    @field_validator("bridge_languages")
+    @classmethod
+    def language_tags(cls, value):
+        return BridgeContext(bridge_languages=value).bridge_languages if value is not None else None
 
 
 class CorrectionRequest(StrictModel):
@@ -178,6 +225,7 @@ class SessionView(ORMModel):
     created_at: datetime
     revision: int
     published_run_id: UUID | None
+    bridge_languages: list[str]
 
 
 class SessionDetail(SessionView):
@@ -197,6 +245,7 @@ class RunView(ORMModel):
     extractor_version: str
     resolver_version: str
     projector_version: str
+    bridge_languages: list[str]
     created_at: datetime
     finished_at: datetime | None
     summary: dict | None

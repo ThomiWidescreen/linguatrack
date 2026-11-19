@@ -27,3 +27,14 @@ El progreso final muestra cinco lexemas encontrados y una construcción, con evi
 La validación detectó índices de citas incorrectos y variaciones de clasificación del modelo. Se añadieron localización determinista de citas únicas, instrucciones más precisas y reglas versionadas de normalización de etiquetas léxicas, con pruebas de regresión. No se reparan citas que no existen ni se escoge automáticamente entre ubicaciones ambiguas.
 
 Esto verifica el recorrido funcional y un ejemplo lingüístico concreto; no constituye una evaluación estadística de calidad multilingüe. El alcance pendiente y las instrucciones para probar están en [la guía del backend](../apps/backend/README.md).
+
+## Actualización: objetivo e idiomas puente
+
+El extractor `lesson-v3` distingue el objetivo del track de los idiomas puente opcionales. La migración `0003` agrega el contexto a sesiones y runs con valor vacío para datos anteriores. El contexto original queda protegido por el trigger de inmutabilidad; cada reprocesamiento puede conservarlo, reemplazarlo o volver al modo automático.
+
+- 30 pruebas backend aprobadas, incluyendo entrega del contexto al proveedor, rechazo de evidencia del idioma puente, cambios de contexto por revisión, idempotencia compatible e inmutabilidad del envío original.
+- `alembic check`: sin diferencias pendientes después de aplicar `0003`.
+- Smoke real con un fixture sintético de equivalencias español/malayo/inglés: recuperó `tidur`, `kadang-kadang` y `di suatu tempat`, conservó sus citas y excluyó traducciones de español/inglés. Pasó con `bridge_languages=[]` y con `["es", "en"]`, sin advertencias por mezcla ni construcciones inventadas.
+- Se verificó un reprocesamiento completo por HTTP y worker, manteniendo la publicación anterior hasta el éxito. El contenido privado usado para esa comprobación no se incorpora al repositorio.
+
+Las pruebas de proveedor son acotadas y separadas de CI. Estos casos no establecen una tasa de precisión ni garantizan cobertura exhaustiva de todo apunte multilingüe.

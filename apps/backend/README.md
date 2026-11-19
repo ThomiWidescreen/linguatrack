@@ -49,6 +49,33 @@ Se espera que walaupun y sempat se reconozcan como revisitados, y meskipun y ber
 
 Swagger muestra `X-Dev-User` opcional en las rutas privadas: vacío utiliza el UUID demo `00000000-0000-4000-8000-000000000001`. Otro UUID permite simular otra persona con su propio historial. **Esta cabecera no es autenticación**; cualquiera con acceso al servidor local podría escoger otra identidad. Los filtros de pertenencia, FKs y RLS aíslan los datos una vez seleccionada esa identidad, pero aún falta verificar quién la controla.
 
+## Clases bilingües: idioma objetivo e idiomas puente
+
+El track fija el idioma **objetivo** que se está aprendiendo. `bridge_languages` permite declarar los idiomas de las explicaciones y traducciones; admite hasta cinco tags, por ejemplo `es`, `en` o `pt-BR`. No tienen que ser idiomas habilitados como tracks. El objetivo no puede ser también puente, ni una variante de ese mismo idioma.
+
+```json
+{
+  "title": "Malayo con explicaciones en español e inglés",
+  "bridge_languages": ["es", "en"],
+  "text": "dormir = tidur = sleep; kadang-kadang = a veces; sala de estar = living room"
+}
+```
+
+Para un track `ms`, se deben registrar `tidur` y `kadang-kadang`, con sus citas originales completas. `dormir`, `sleep` y las otras traducciones no aportan conocimiento de esos idiomas. Una línea que solo contiene español/inglés se omite, sin inventarle una traducción al malayo. Mezclar idiomas no es motivo de advertencia por sí mismo. Las expresiones de varias palabras también pueden ser vocabulario; solo se extraen construcciones cuando hay un patrón gramatical explícitamente trabajado.
+
+El campo es opcional: omitirlo o enviar `[]` habilita la interpretación automática de los idiomas puente. Esto conserva compatibilidad con clases anteriores. Las etiquetas son contexto para el LLM, no un filtro rígido: una traducción adicional en otro idioma no invalida la clase.
+
+Cada run conserva su contexto y lo muestra en `/processing-runs/{id}`, en el resumen y en la procedencia de la evidencia. Para reprocesar una clase anterior con contexto explícito:
+
+```json
+{
+  "expected_revision": 1,
+  "bridge_languages": ["es", "en"]
+}
+```
+
+En reprocess, omitir el campo o enviar `null` hereda el contexto de la revisión anterior; `[]` vuelve al modo automático. La sesión conserva los idiomas puente del envío original y los runs conservan los de cada reprocesamiento. Las correcciones reutilizan la extracción y el contexto de la publicación corregida. Cambiar contexto requiere otra Idempotency-Key.
+
 ## Correcciones, historial y reintentos
 
 `POST /v1/me/sessions/{id}/corrections` admite descartar una observación o corregir correctness/assistance. Obtener `observation_id` de `/evidence`, usar `expected_revision` de la sesión y una key nueva. Ejemplo:

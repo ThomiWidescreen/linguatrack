@@ -46,8 +46,9 @@ class FakeExtractor:
         self.result = Extraction(items=items, warnings=[])
         self.calls = 0
 
-    def extract(self, content, language, model):
+    def extract(self, content, language, model, *, bridge_languages):
         self.calls += 1
+        self.bridge_languages = bridge_languages
         return self.result, {"response_id": "test-response", "usage": {}}
 
 
@@ -362,7 +363,7 @@ def test_retry_and_stale_lease_recovery(client):
     uid, rid = UUID(client.headers["X-Dev-User"]), UUID(response["run_id"])
 
     class TemporarilyBroken:
-        def extract(self, *args):
+        def extract(self, *args, **kwargs):
             raise ExtractionFailure("temporary_test", retryable=True)
 
     process_run(uid, rid, TemporarilyBroken())
@@ -399,14 +400,14 @@ def test_stale_run_cannot_publish_over_new_revision(client):
     first = submit(client, tid)
 
     class SupersedingExtractor(FakeExtractor):
-        def extract(self, *args):
+        def extract(self, *args, **kwargs):
             result = client.post(
                 f"/v1/me/sessions/{first['session_id']}/reprocess",
                 json={"expected_revision": 1},
                 headers={"Idempotency-Key": "newer"},
             )
             assert result.status_code == 202
-            return super().extract(*args)
+            return super().extract(*args, **kwargs)
 
     process_run(
         UUID(client.headers["X-Dev-User"]),

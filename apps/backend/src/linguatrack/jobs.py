@@ -59,10 +59,16 @@ def process_run(user_id: UUID, run_id: UUID, extractor: Extractor | None = None)
         lesson = owned(db, Lesson, run.session_id, user_id)
         track = owned(db, Track, lesson.track_id, user_id)
         content, language, model = lesson.text, track.language_tag, run.model
+        bridge_languages = run.bridge_languages
         stored = run.extraction
     try:
         if stored is None:
-            result, metadata = (extractor or OpenAIExtractor()).extract(content, language, model)
+            result, metadata = (extractor or OpenAIExtractor()).extract(
+                content,
+                language,
+                model,
+                bridge_languages=bridge_languages,
+            )
             with transaction(user_id) as db:
                 run = db.scalar(select(Run).where(Run.id == run_id).with_for_update())
                 if run.lease_token != token:

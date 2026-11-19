@@ -1,9 +1,9 @@
 from typing import Literal, Protocol
 
-from pydantic import BaseModel
+from linguatrack.schemas import BridgeContext
 
 
-class SourceEnvelope(BaseModel):
+class SourceEnvelope(BridgeContext):
     provider: Literal["manual", "zoom", "meet", "duolingo", "mcp"]
     external_event_id: str | None = None
     language_tag: str

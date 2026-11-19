@@ -125,15 +125,20 @@ def submit(db: Session, user_id: UUID, track_id: UUID, body: SessionCreate, key:
     track = owned(db, Track, track_id, user_id)
     scope = f"submit:{track.id}"
     payload = body.model_dump(mode="json")
+    if not body.bridge_languages:
+        # Preserve hashes of requests accepted before bridge context was introduced.
+        payload.pop("bridge_languages")
     cached = idempotent(db, user_id, scope, key, payload)
     if cached:
         return cached
     if len(body.text) > get_settings().max_text_characters:
         raise DomainError(413, "Lesson exceeds configured text limit")
+    validate_bridge_languages(track.language_tag, body.bridge_languages)
     envelope = ADAPTERS["manual"].normalize(
         {
             "language_tag": track.language_tag,
             "text": body.text,
+            "bridge_languages": body.bridge_languages,
         }
     )
     lesson = Lesson(
@@ -142,6 +147,7 @@ def submit(db: Session, user_id: UUID, track_id: UUID, body: SessionCreate, key:
         text=envelope.text,
         title=body.title,
         occurred_at=body.occurred_at,
+        bridge_languages=envelope.bridge_languages,
     )
     db.add(lesson)
     db.flush()
@@ -150,13 +156,31 @@ def submit(db: Session, user_id: UUID, track_id: UUID, body: SessionCreate, key:
         session_id=lesson.id,
         revision=1,
         model=get_settings().openai_model,
+        bridge_languages=envelope.bridge_languages,
     )
     db.add(run)
     db.flush()
     return record_request(db, user_id, scope, key, payload, lesson, run)
 
 
-def new_revision(db, lesson, extraction=None):
+def validate_bridge_languages(target: str, bridges: list[str]):
+    if any(tag.split("-")[0] == target.split("-")[0] for tag in bridges):
+        raise DomainError(422, "Target language cannot also be a bridge language")
+
+
+def new_revision(db, lesson, extraction=None, bridge_languages=None):
+    previous = db.scalar(
+        select(Run).where(
+            Run.session_id == lesson.id,
+            Run.user_id == lesson.user_id,
+            Run.revision == lesson.revision,
+        )
+    )
+    bridges = (
+        bridge_languages
+        if bridge_languages is not None
+        else (previous.bridge_languages if previous else lesson.bridge_languages)
+    )
     lesson.revision += 1
     run = Run(
         user_id=lesson.user_id,
@@ -164,6 +188,7 @@ def new_revision(db, lesson, extraction=None):
         revision=lesson.revision,
         extraction=extraction,
         model=get_settings().openai_model,
+        bridge_languages=bridges,
     )
     db.add(run)
     db.flush()
@@ -174,6 +199,8 @@ def reprocess(db, user_id, session_id, body: ReprocessRequest, key):
     lesson = owned(db, Lesson, session_id, user_id)
     scope = f"reprocess:{lesson.id}"
     payload = body.model_dump(mode="json")
+    if body.bridge_languages is None:
+        payload.pop("bridge_languages")
     cached = idempotent(db, user_id, scope, key, payload)
     if cached:
         return cached
@@ -181,7 +208,9 @@ def reprocess(db, user_id, session_id, body: ReprocessRequest, key):
     db.refresh(lesson)
     if lesson.revision != body.expected_revision:
         raise DomainError(409, "Session revision has changed")
-    run = new_revision(db, lesson)
+    track = owned(db, Track, lesson.track_id, user_id)
+    validate_bridge_languages(track.language_tag, body.bridge_languages or [])
+    run = new_revision(db, lesson, bridge_languages=body.bridge_languages)
     return record_request(db, user_id, scope, key, payload, lesson, run)
 
 
@@ -212,7 +241,12 @@ def correct(db, user_id, session_id, body: CorrectionRequest, key):
             reason=body.reason,
         )
     )
-    run = new_revision(db, lesson, extraction=current.extraction)
+    run = new_revision(
+        db,
+        lesson,
+        extraction=current.extraction,
+        bridge_languages=current.bridge_languages,
+    )
     run.model = current.model
     run.extractor_version = current.extractor_version
     run.provider_response_id = current.provider_response_id
@@ -431,6 +465,8 @@ def publish(db: Session, run: Run):
                 "extracted_kind": raw.kind,
                 "extracted_pos": raw.pos,
                 "human_corrected": bool(patch),
+                "target_language": track.language_tag,
+                "bridge_languages": run.bridge_languages,
                 "fingerprint": fp,
             },
         )
@@ -450,6 +486,11 @@ def publish(db: Session, run: Run):
         return {"concept_id": str(concept.id), "lemma": concept.lemma, "kind": concept.kind}
 
     run.summary = {
+        "language_context": {
+            "target_language": track.language_tag,
+            "bridge_languages": run.bridge_languages,
+            "bridge_mode": "declared" if run.bridge_languages else "automatic",
+        },
         "new_to_recorded_history": [view(c) for cid, c in concepts.items() if cid not in earlier],
         "revisited": [view(c) for cid, c in concepts.items() if cid in earlier],
         "observation_count": len(observations),

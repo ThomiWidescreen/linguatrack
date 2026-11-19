@@ -4,6 +4,8 @@ Estado: diseño de referencia aprobado para iniciar el desarrollo. Fecha: 20 de 
 
 Actualización: se implementó un MVP local con OpenAI y sin autenticación por solicitud del usuario. El [README del backend](../apps/backend/README.md) identifica las funciones disponibles, cómo probar Swagger y las partes de este diseño que siguen pendientes. La autenticación OIDC y la recuperación semántica no forman parte de la entrega local inicial.
 
+El idioma objetivo proviene del track. Las sesiones admiten `bridge_languages` para explicaciones/traducciones y cada run conserva ese contexto; omitirlo permite inferirlo. La mezcla de idiomas es normal y no crea evidencia para los idiomas puente. Reprocesar permite declarar o cambiar el contexto sin editar la clase original.
+
 ## 1. Recomendación y alcance
 
 Construir un monolito modular en `apps/backend/`: Python 3.12+, FastAPI, Pydantic v2, SQLAlchemy 2, Alembic y PostgreSQL con pgvector. Ejecutar API y worker como procesos separados del mismo código. Redis y Dramatiq transportan trabajos; PostgreSQL conserva el estado durable. El frontend React/Vite será otra aplicación.

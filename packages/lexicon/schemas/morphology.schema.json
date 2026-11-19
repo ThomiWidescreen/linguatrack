@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/ThomiWidescreen/linguatrack-lexicon/schemas/relations.schema.json",
-  "title": "LinguaTrack relations",
+  "$id": "https://raw.githubusercontent.com/ThomiWidescreen/linguatrack/main/packages/lexicon/schemas/morphology.schema.json",
+  "title": "LinguaTrack morphology",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -10,10 +10,7 @@
     "schema_version",
     "provenance",
     "entry_id",
-    "sense_id",
-    "relation",
-    "target",
-    "target_language",
+    "features",
     "tags"
   ],
   "properties": {
@@ -80,34 +77,11 @@
       "type": "string",
       "pattern": "^[a-f0-9]{64}$"
     },
-    "sense_id": {
-      "type": [
-        "string",
-        "null"
-      ]
-    },
-    "relation": {
-      "enum": [
-        "synonyms",
-        "antonyms",
-        "hypernyms",
-        "hyponyms",
-        "holonyms",
-        "meronyms",
-        "derived",
-        "related",
-        "form_of",
-        "alt_of",
-        "translation"
-      ]
-    },
-    "target": {
-      "type": "string",
-      "minLength": 1
-    },
-    "target_language": {
-      "type": "string",
-      "minLength": 1
+    "features": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
     },
     "tags": {
       "type": "array",

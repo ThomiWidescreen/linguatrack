@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/ThomiWidescreen/linguatrack-lexicon/schemas/entries.schema.json",
+  "$id": "https://raw.githubusercontent.com/ThomiWidescreen/linguatrack/main/packages/lexicon/schemas/entries.schema.json",
   "title": "LinguaTrack entries",
   "type": "object",
   "additionalProperties": false,

@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/ThomiWidescreen/linguatrack-lexicon/schemas/frequency.schema.json",
-  "title": "LinguaTrack frequency",
+  "$id": "https://raw.githubusercontent.com/ThomiWidescreen/linguatrack/main/packages/lexicon/schemas/cefr.schema.json",
+  "title": "LinguaTrack cefr",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -11,12 +11,11 @@
     "provenance",
     "lemma",
     "pos",
-    "unit",
-    "count",
-    "rank",
-    "metric",
-    "corpus",
-    "denominator"
+    "level",
+    "method",
+    "scope",
+    "sense_id",
+    "notes"
   ],
   "properties": {
     "id": {
@@ -100,40 +99,30 @@
         "SCONJ",
         "SYM",
         "VERB",
-        "X",
-        null
+        "X"
       ]
     },
-    "unit": {
+    "level": {
       "enum": [
-        "surface",
-        "lemma"
+        "A1",
+        "A2",
+        "B1",
+        "B2",
+        "C1",
+        "C2"
       ]
     },
-    "count": {
-      "type": "integer",
-      "minimum": 0
+    "method": {
+      "const": "source_asserted"
     },
-    "rank": {
-      "type": [
-        "integer",
-        "null"
-      ],
-      "minimum": 1
+    "scope": {
+      "const": "lemma_pos"
     },
-    "metric": {
-      "const": "corpus_count"
+    "sense_id": {
+      "type": "null"
     },
-    "corpus": {
-      "type": "string",
-      "minLength": 1
-    },
-    "denominator": {
-      "type": [
-        "integer",
-        "null"
-      ],
-      "minimum": 1
+    "notes": {
+      "type": "string"
     }
   }
 }

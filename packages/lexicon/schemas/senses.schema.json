@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/ThomiWidescreen/linguatrack-lexicon/schemas/forms.schema.json",
-  "title": "LinguaTrack forms",
+  "$id": "https://raw.githubusercontent.com/ThomiWidescreen/linguatrack/main/packages/lexicon/schemas/senses.schema.json",
+  "title": "LinguaTrack senses",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -10,10 +10,11 @@
     "schema_version",
     "provenance",
     "entry_id",
-    "form",
+    "sense_id",
+    "glosses",
+    "gloss_language",
     "tags",
-    "features",
-    "variety_tags"
+    "source_sense_ids"
   ],
   "properties": {
     "id": {
@@ -79,7 +80,17 @@
       "type": "string",
       "pattern": "^[a-f0-9]{64}$"
     },
-    "form": {
+    "sense_id": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "glosses": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "gloss_language": {
       "type": "string",
       "minLength": 1
     },
@@ -89,13 +100,7 @@
         "type": "string"
       }
     },
-    "features": {
-      "type": "object",
-      "additionalProperties": {
-        "type": "string"
-      }
-    },
-    "variety_tags": {
+    "source_sense_ids": {
       "type": "array",
       "items": {
         "type": "string"

@@ -8,7 +8,7 @@
       "path": "input/lex-en.jsonl",
       "sha256": "d5dcf1b0ea85e583b78328b81fa290d2d3b155b78c05d7f694f0358e810ef553",
       "revision": "authored-v1",
-      "url": "https://github.com/ThomiWidescreen/linguatrack-lexicon",
+      "url": "https://github.com/ThomiWidescreen/linguatrack",
       "synthetic": true
     },
     {
@@ -18,7 +18,7 @@
       "path": "input/lex-es.jsonl",
       "sha256": "e20e9acb2c81e56a40605ccff0ee21ab3ddefb56831adc779036cd66db562c5c",
       "revision": "authored-v1",
-      "url": "https://github.com/ThomiWidescreen/linguatrack-lexicon",
+      "url": "https://github.com/ThomiWidescreen/linguatrack",
       "synthetic": true
     },
     {
@@ -28,7 +28,7 @@
       "path": "input/lex-pt.jsonl",
       "sha256": "e99ac38eeb356cd2525e34b66aede5ed7d0449bcf560d33c087fe42c016f4c92",
       "revision": "authored-v1",
-      "url": "https://github.com/ThomiWidescreen/linguatrack-lexicon",
+      "url": "https://github.com/ThomiWidescreen/linguatrack",
       "synthetic": true
     },
     {
@@ -38,7 +38,7 @@
       "path": "input/lex-pt-BR.jsonl",
       "sha256": "4db7867b57d1950a456dad6fa5603b44847c221737bd8dbd84f1fd60af3f5ecf",
       "revision": "authored-v1",
-      "url": "https://github.com/ThomiWidescreen/linguatrack-lexicon",
+      "url": "https://github.com/ThomiWidescreen/linguatrack",
       "synthetic": true
     },
     {
@@ -48,7 +48,7 @@
       "path": "input/lex-pt-PT.jsonl",
       "sha256": "0d0a0324ef1d6d2bfe73d1a9fa8f20798bab9d19a04dcecf6157e8fbba260671",
       "revision": "authored-v1",
-      "url": "https://github.com/ThomiWidescreen/linguatrack-lexicon",
+      "url": "https://github.com/ThomiWidescreen/linguatrack",
       "synthetic": true
     },
     {
@@ -58,7 +58,7 @@
       "path": "input/lex-ms.jsonl",
       "sha256": "d1838b2ced97c486bb02238889ddfdb815f1f05b09b0a779a76422e957dfacaa",
       "revision": "authored-v1",
-      "url": "https://github.com/ThomiWidescreen/linguatrack-lexicon",
+      "url": "https://github.com/ThomiWidescreen/linguatrack",
       "synthetic": true
     },
     {
@@ -68,7 +68,7 @@
       "path": "input/morph.conllu",
       "sha256": "33ff74d266fae5810a6e5c2556be8c3747e6082e752a8b7a4603e902c30b1ae1",
       "revision": "authored-v1",
-      "url": "https://github.com/ThomiWidescreen/linguatrack-lexicon",
+      "url": "https://github.com/ThomiWidescreen/linguatrack",
       "synthetic": true
     },
     {
@@ -78,7 +78,7 @@
       "path": "input/counts.txt",
       "sha256": "71a2701647ffa7ea8908fff321bdeb138265ddf9cc34a20f536a5f4b3975e60b",
       "revision": "authored-v1",
-      "url": "https://github.com/ThomiWidescreen/linguatrack-lexicon",
+      "url": "https://github.com/ThomiWidescreen/linguatrack",
       "synthetic": true
     },
     {
@@ -88,7 +88,7 @@
       "path": "input/anchors.csv",
       "sha256": "7ba14d2b81900685880d68c548f81c16a7d812be78fe7f5ae3507ca9a7d5c486",
       "revision": "authored-v1",
-      "url": "https://github.com/ThomiWidescreen/linguatrack-lexicon",
+      "url": "https://github.com/ThomiWidescreen/linguatrack",
       "synthetic": true
     }
   ]

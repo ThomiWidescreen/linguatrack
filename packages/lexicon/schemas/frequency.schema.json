@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/ThomiWidescreen/linguatrack-lexicon/schemas/senses.schema.json",
-  "title": "LinguaTrack senses",
+  "$id": "https://raw.githubusercontent.com/ThomiWidescreen/linguatrack/main/packages/lexicon/schemas/frequency.schema.json",
+  "title": "LinguaTrack frequency",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -9,12 +9,14 @@
     "language",
     "schema_version",
     "provenance",
-    "entry_id",
-    "sense_id",
-    "glosses",
-    "gloss_language",
-    "tags",
-    "source_sense_ids"
+    "lemma",
+    "pos",
+    "unit",
+    "count",
+    "rank",
+    "metric",
+    "corpus",
+    "denominator"
   ],
   "properties": {
     "id": {
@@ -76,35 +78,62 @@
         }
       }
     },
-    "entry_id": {
-      "type": "string",
-      "pattern": "^[a-f0-9]{64}$"
-    },
-    "sense_id": {
-      "type": "string",
-      "pattern": "^[a-f0-9]{64}$"
-    },
-    "glosses": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "gloss_language": {
+    "lemma": {
       "type": "string",
       "minLength": 1
     },
-    "tags": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
+    "pos": {
+      "enum": [
+        "ADJ",
+        "ADP",
+        "ADV",
+        "AUX",
+        "CCONJ",
+        "DET",
+        "INTJ",
+        "NOUN",
+        "NUM",
+        "PART",
+        "PRON",
+        "PROPN",
+        "PUNCT",
+        "SCONJ",
+        "SYM",
+        "VERB",
+        "X",
+        null
+      ]
     },
-    "source_sense_ids": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
+    "unit": {
+      "enum": [
+        "surface",
+        "lemma"
+      ]
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "rank": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "metric": {
+      "const": "corpus_count"
+    },
+    "corpus": {
+      "type": "string",
+      "minLength": 1
+    },
+    "denominator": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
     }
   }
 }

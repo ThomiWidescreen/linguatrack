@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/ThomiWidescreen/linguatrack-lexicon/schemas/cefr.schema.json",
-  "title": "LinguaTrack cefr",
+  "$id": "https://raw.githubusercontent.com/ThomiWidescreen/linguatrack/main/packages/lexicon/schemas/forms.schema.json",
+  "title": "LinguaTrack forms",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -9,13 +9,11 @@
     "language",
     "schema_version",
     "provenance",
-    "lemma",
-    "pos",
-    "level",
-    "method",
-    "scope",
-    "sense_id",
-    "notes"
+    "entry_id",
+    "form",
+    "tags",
+    "features",
+    "variety_tags"
   ],
   "properties": {
     "id": {
@@ -77,52 +75,31 @@
         }
       }
     },
-    "lemma": {
+    "entry_id": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "form": {
       "type": "string",
       "minLength": 1
     },
-    "pos": {
-      "enum": [
-        "ADJ",
-        "ADP",
-        "ADV",
-        "AUX",
-        "CCONJ",
-        "DET",
-        "INTJ",
-        "NOUN",
-        "NUM",
-        "PART",
-        "PRON",
-        "PROPN",
-        "PUNCT",
-        "SCONJ",
-        "SYM",
-        "VERB",
-        "X"
-      ]
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     },
-    "level": {
-      "enum": [
-        "A1",
-        "A2",
-        "B1",
-        "B2",
-        "C1",
-        "C2"
-      ]
+    "features": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
     },
-    "method": {
-      "const": "source_asserted"
-    },
-    "scope": {
-      "const": "lemma_pos"
-    },
-    "sense_id": {
-      "type": "null"
-    },
-    "notes": {
-      "type": "string"
+    "variety_tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     }
   }
 }

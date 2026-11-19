@@ -5,6 +5,9 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/lexicon
     strategy:
       matrix:
         python: ['3.11', '3.12', '3.13']

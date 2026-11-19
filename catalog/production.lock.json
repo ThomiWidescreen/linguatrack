@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "inputs": [
+    {
+      "source": "frequencywords-en",
+      "language": "en",
+      "format": "frequency",
+      "path": "../data/raw/frequencywords-en/en_50k.txt",
+      "sha256": "5351ff405b1126ef555791dd4d9798a48e3e9a501a9fc481a9da957752cfb458",
+      "revision": "525f9b560de45753a5ea01069454e72e9aa541c6",
+      "url": "https://raw.githubusercontent.com/hermitdave/FrequencyWords/525f9b560de45753a5ea01069454e72e9aa541c6/content/2018/en/en_50k.txt"
+    },
+    {
+      "source": "frequencywords-es",
+      "language": "es",
+      "format": "frequency",
+      "path": "../data/raw/frequencywords-es/es_50k.txt",
+      "sha256": "dcff3ad4316192f4dc4ff7d26e637c6ff314ef1ca0f3f720c5649018a71056c0",
+      "revision": "525f9b560de45753a5ea01069454e72e9aa541c6",
+      "url": "https://raw.githubusercontent.com/hermitdave/FrequencyWords/525f9b560de45753a5ea01069454e72e9aa541c6/content/2018/es/es_50k.txt"
+    },
+    {
+      "source": "frequencywords-pt",
+      "language": "pt",
+      "format": "frequency",
+      "path": "../data/raw/frequencywords-pt/pt_50k.txt",
+      "sha256": "f97704382f97273ff59488b1885e7ac90d20f81fd92e5fbad3e3ce43633f495c",
+      "revision": "525f9b560de45753a5ea01069454e72e9aa541c6",
+      "url": "https://raw.githubusercontent.com/hermitdave/FrequencyWords/525f9b560de45753a5ea01069454e72e9aa541c6/content/2018/pt/pt_50k.txt"
+    },
+    {
+      "source": "frequencywords-pt-BR",
+      "language": "pt-BR",
+      "format": "frequency",
+      "path": "../data/raw/frequencywords-pt-BR/pt_br_50k.txt",
+      "sha256": "a61d6f2ede97c5daad5fb3907b72a228f0aff12668be6d24da590d20804fa611",
+      "revision": "525f9b560de45753a5ea01069454e72e9aa541c6",
+      "url": "https://raw.githubusercontent.com/hermitdave/FrequencyWords/525f9b560de45753a5ea01069454e72e9aa541c6/content/2018/pt_br/pt_br_50k.txt"
+    },
+    {
+      "source": "frequencywords-ms",
+      "language": "ms",
+      "format": "frequency",
+      "path": "../data/raw/frequencywords-ms/ms_50k.txt",
+      "sha256": "908558d74db18b486239a557ff7a692178b7ac8555cab04ac3ea8326e6129675",
+      "revision": "525f9b560de45753a5ea01069454e72e9aa541c6",
+      "url": "https://raw.githubusercontent.com/hermitdave/FrequencyWords/525f9b560de45753a5ea01069454e72e9aa541c6/content/2018/ms/ms_50k.txt"
+    },
+    {
+      "source": "octanove-c1c2",
+      "language": "en",
+      "format": "cefr",
+      "path": "../data/raw/octanove-c1c2/octanove-vocabulary-profile-c1c2-1.0.csv",
+      "sha256": "18c33a407f2f89f7b8de9671c6d45fe3ea0bce45e7d2d7dcaab48d73e0f7b380",
+      "revision": "d4e45b75b38f27b30dfc5c44d8c571aec7e7092f",
+      "url": "https://raw.githubusercontent.com/openlanguageprofiles/olp-en-cefrj/d4e45b75b38f27b30dfc5c44d8c571aec7e7092f/octanove-vocabulary-profile-c1c2-1.0.csv"
+    },
+    {
+      "source": "ud-es-ancora",
+      "language": "es",
+      "format": "conllu",
+      "path": "../data/raw/ud-es-ancora/es_ancora-ud-dev.conllu",
+      "sha256": "83033c89b18594a8c7d1571a0f259721714fd989974ca51bd9776bc69faba40c",
+      "revision": "3ea1f747220979d91787a6d04b85734a42bf22a4",
+      "url": "https://raw.githubusercontent.com/UniversalDependencies/UD_Spanish-AnCora/3ea1f747220979d91787a6d04b85734a42bf22a4/es_ancora-ud-dev.conllu"
+    },
+    {
+      "source": "ud-pt-bosque",
+      "language": "pt",
+      "format": "conllu",
+      "path": "../data/raw/ud-pt-bosque/pt_bosque-ud-dev.conllu",
+      "sha256": "f8a67abae12fbab85a3995204a6459d1958c11065062d4ea5349d6b914e78f81",
+      "revision": "036da549f7d74034c666c19c04e5150e305fe43d",
+      "url": "https://raw.githubusercontent.com/UniversalDependencies/UD_Portuguese-Bosque/036da549f7d74034c666c19c04e5150e305fe43d/pt_bosque-ud-dev.conllu"
+    },
+    {
+      "source": "ud-en-pud",
+      "language": "en",
+      "format": "conllu",
+      "path": "../data/raw/ud-en-pud/en_pud-ud-test.conllu",
+      "sha256": "befc5e901b58732f2308b1aac5cdd804d938362ab31c9fe400c61c28e8e155d8",
+      "revision": "a697bab43d4111073356de0df5802488bca3de7e",
+      "url": "https://raw.githubusercontent.com/UniversalDependencies/UD_English-PUD/a697bab43d4111073356de0df5802488bca3de7e/en_pud-ud-test.conllu"
+    },
+    {
+      "source": "ep-spoken",
+      "language": "pt-PT",
+      "format": "ep_frequency",
+      "path": "../data/raw/ep-spoken/ep_spoken_top5000.csv",
+      "sha256": "fd2193576c755bfdfec43c6fa1390cefcf0841317a75d0bc393e2d1b51f38e4b",
+      "revision": "6881814767beba569e11106e8dd49132e9ef51fc",
+      "url": "https://raw.githubusercontent.com/professorcdp/EPspokenfrequency/6881814767beba569e11106e8dd49132e9ef51fc/out/ep_spoken_top5000.csv"
+    }
+  ]
+}

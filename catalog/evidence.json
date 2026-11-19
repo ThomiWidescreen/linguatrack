@@ -1,0 +1,57 @@
+[
+  {
+    "url": "https://raw.githubusercontent.com/hermitdave/FrequencyWords/525f9b560de45753a5ea01069454e72e9aa541c6/README.md",
+    "sha256": "a92fcc50e27f7b2d5860ec1c1ce794dc4c892d945bfa4c8c3136cdfd213ee710",
+    "reviewed": "2026-11-19"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/hermitdave/FrequencyWords/525f9b560de45753a5ea01069454e72e9aa541c6/LICENSE",
+    "sha256": "e08d916cc953f85f7dfa0df530f6d7931f14ce804d053602662d8649b5fac829",
+    "reviewed": "2026-11-19"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/openlanguageprofiles/olp-en-cefrj/d4e45b75b38f27b30dfc5c44d8c571aec7e7092f/README.md",
+    "sha256": "8b69f7366fa3c7be328cb9ba02ceb7b3725697f36125bb75b85131d664b5e359",
+    "reviewed": "2026-11-19"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/UniversalDependencies/UD_Spanish-AnCora/3ea1f747220979d91787a6d04b85734a42bf22a4/README.md",
+    "sha256": "695eeb9e89e7da50f08a9831c5e95063d124f873d8e47ded77c461790af467e2",
+    "reviewed": "2026-11-19"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/UniversalDependencies/UD_Spanish-AnCora/3ea1f747220979d91787a6d04b85734a42bf22a4/LICENSE.txt",
+    "sha256": "653702c7fdee69f7d7a439c9ba4c178c26e745479f6e6d2943bed1a9b9c7bf67",
+    "reviewed": "2026-11-19"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/UniversalDependencies/UD_Portuguese-Bosque/036da549f7d74034c666c19c04e5150e305fe43d/README.md",
+    "sha256": "6b603f73859f6648bf9bf3d4e582cfb9507995972d2d948b11b61ab9f19614ab",
+    "reviewed": "2026-11-19"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/UniversalDependencies/UD_Portuguese-Bosque/036da549f7d74034c666c19c04e5150e305fe43d/LICENSE.txt",
+    "sha256": "ab3a36080055dd29ad2b59162e43d1368c7f15643666bea982d4e103f546e025",
+    "reviewed": "2026-11-19"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/UniversalDependencies/UD_English-PUD/a697bab43d4111073356de0df5802488bca3de7e/README.md",
+    "sha256": "9558eb70a6565a40e2ecf06d0f38c9f6117de0f0f8bc5021805bdce51ee0d67f",
+    "reviewed": "2026-11-19"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/UniversalDependencies/UD_English-PUD/a697bab43d4111073356de0df5802488bca3de7e/LICENSE.txt",
+    "sha256": "b278eb53fe50b8bb7fa0d90fb8536c35fdcaa80f9d63812cb51db539555d2a89",
+    "reviewed": "2026-11-19"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/professorcdp/EPspokenfrequency/6881814767beba569e11106e8dd49132e9ef51fc/README.md",
+    "sha256": "1d9dd2c74615cf6a4f0ed0029824e118fca4c2a8c3813fa126117809fe33d1c5",
+    "reviewed": "2026-11-19"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/professorcdp/EPspokenfrequency/6881814767beba569e11106e8dd49132e9ef51fc/LICENSE-DATA",
+    "sha256": "cef18d6267226a9d65042d6af6b34aef0bf4cd6c1ad0d36bf1077c91b228026a",
+    "reviewed": "2026-11-19"
+  }
+]

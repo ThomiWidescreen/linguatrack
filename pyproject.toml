@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools==75.8.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "linguatrack-lexicon"
+version = "0.1.0"
+description = "Provenance-first multilingual lexical data pipeline"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+readme = "README.md"
+authors = [{name = "LinguaTrack contributors"}]
+dependencies = []
+
+[project.scripts]
+linguatrack-lexicon = "linguatrack_lexicon.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

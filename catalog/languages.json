@@ -1,0 +1,38 @@
+{
+  "en": {
+    "base": "en",
+    "name": "English",
+    "unicode": "NFC",
+    "case_sensitive": true
+  },
+  "es": {
+    "base": "es",
+    "name": "Spanish",
+    "unicode": "NFC",
+    "case_sensitive": true
+  },
+  "pt": {
+    "base": "pt",
+    "name": "Portuguese, unspecified variety",
+    "unicode": "NFC",
+    "case_sensitive": true
+  },
+  "pt-BR": {
+    "base": "pt",
+    "name": "Brazilian Portuguese",
+    "unicode": "NFC",
+    "case_sensitive": true
+  },
+  "pt-PT": {
+    "base": "pt",
+    "name": "European Portuguese",
+    "unicode": "NFC",
+    "case_sensitive": true
+  },
+  "ms": {
+    "base": "ms",
+    "name": "Malay",
+    "unicode": "NFC",
+    "case_sensitive": true
+  }
+}

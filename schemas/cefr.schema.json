@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ThomiWidescreen/linguatrack-lexicon/schemas/cefr.schema.json",
+  "title": "LinguaTrack cefr",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "language",
+    "schema_version",
+    "provenance",
+    "lemma",
+    "pos",
+    "level",
+    "method",
+    "scope",
+    "sense_id",
+    "notes"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "language": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "revision",
+        "sha256",
+        "locator",
+        "license",
+        "url",
+        "confidence",
+        "confidence_basis"
+      ],
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "confidence_basis": {
+          "const": "import_fidelity_heuristic"
+        }
+      }
+    },
+    "lemma": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pos": {
+      "enum": [
+        "ADJ",
+        "ADP",
+        "ADV",
+        "AUX",
+        "CCONJ",
+        "DET",
+        "INTJ",
+        "NOUN",
+        "NUM",
+        "PART",
+        "PRON",
+        "PROPN",
+        "PUNCT",
+        "SCONJ",
+        "SYM",
+        "VERB",
+        "X"
+      ]
+    },
+    "level": {
+      "enum": [
+        "A1",
+        "A2",
+        "B1",
+        "B2",
+        "C1",
+        "C2"
+      ]
+    },
+    "method": {
+      "const": "source_asserted"
+    },
+    "scope": {
+      "const": "lemma_pos"
+    },
+    "sense_id": {
+      "type": "null"
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

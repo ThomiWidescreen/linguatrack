@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ThomiWidescreen/linguatrack-lexicon/schemas/entries.schema.json",
+  "title": "LinguaTrack entries",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "language",
+    "schema_version",
+    "provenance",
+    "entry_id",
+    "lemma",
+    "search_key",
+    "pos",
+    "source_pos",
+    "etymology",
+    "entry_type",
+    "source_page"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "language": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "revision",
+        "sha256",
+        "locator",
+        "license",
+        "url",
+        "confidence",
+        "confidence_basis"
+      ],
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "confidence_basis": {
+          "const": "import_fidelity_heuristic"
+        }
+      }
+    },
+    "entry_id": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "lemma": {
+      "type": "string",
+      "minLength": 1
+    },
+    "search_key": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pos": {
+      "enum": [
+        "ADJ",
+        "ADP",
+        "ADV",
+        "AUX",
+        "CCONJ",
+        "DET",
+        "INTJ",
+        "NOUN",
+        "NUM",
+        "PART",
+        "PRON",
+        "PROPN",
+        "PUNCT",
+        "SCONJ",
+        "SYM",
+        "VERB",
+        "X"
+      ]
+    },
+    "source_pos": {
+      "type": "string"
+    },
+    "etymology": {
+      "type": "string"
+    },
+    "entry_type": {
+      "enum": [
+        "lemma",
+        "form"
+      ]
+    },
+    "source_page": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

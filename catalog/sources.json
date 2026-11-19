@@ -1,0 +1,637 @@
+{
+  "kaikki-en-raw": {
+    "license": "CC-BY-SA-4.0",
+    "languages": [
+      "en",
+      "es",
+      "pt",
+      "ms"
+    ],
+    "formats": [
+      "kaikki"
+    ],
+    "evidence": [
+      "https://kaikki.org/dictionary/rawdata.html",
+      "https://en.wiktionary.org/wiki/Wiktionary:Copyrights"
+    ],
+    "attribution": "Wiktionary contributors; extracted by Tatu Ylonen using Wiktextract. Cite Ylonen (2022), Wiktextract: Wiktionary as Machine-Readable Structured Data, LREC, pp. 1317–1325. Original entries and history: https://en.wiktionary.org/.",
+    "notes": "Only English-edition raw lexical fields; no quotations, examples, audio, images or postprocessed merged sources. Archive dump/extractor revision in input lock. Unspecified Portuguese remains pt; tags are not promoted to entry-wide variety claims.",
+    "status": "approved",
+    "redistribute": true,
+    "noncommercial": false,
+    "reviewed": "2026-11-19",
+    "download_prefixes": [
+      "https://kaikki.org/dictionary/raw-wiktextract-data.jsonl"
+    ]
+  },
+  "frequencywords-en": {
+    "license": "CC-BY-SA-4.0",
+    "languages": [
+      "en"
+    ],
+    "formats": [
+      "frequency"
+    ],
+    "evidence": [
+      "https://github.com/hermitdave/FrequencyWords/blob/master/README.md"
+    ],
+    "attribution": "Hermit Dave, FrequencyWords; derived from OPUS OpenSubtitles 2018 / OpenSubtitles contributors. https://github.com/hermitdave/FrequencyWords ; https://opus.nlpl.eu/OpenSubtitles.php ; https://www.opensubtitles.org/",
+    "notes": "Surface counts, subtitle genre, unbalanced. pt is upstream pt label, not proof of pt-PT. pt_br is explicit upstream variety metadata. Content is CC BY-SA, not the MIT code license. No subtitle sentences redistributed.",
+    "status": "approved",
+    "redistribute": true,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "frequencywords-es": {
+    "license": "CC-BY-SA-4.0",
+    "languages": [
+      "es"
+    ],
+    "formats": [
+      "frequency"
+    ],
+    "evidence": [
+      "https://github.com/hermitdave/FrequencyWords/blob/master/README.md"
+    ],
+    "attribution": "Hermit Dave, FrequencyWords; derived from OPUS OpenSubtitles 2018 / OpenSubtitles contributors. https://github.com/hermitdave/FrequencyWords ; https://opus.nlpl.eu/OpenSubtitles.php ; https://www.opensubtitles.org/",
+    "notes": "Surface counts, subtitle genre, unbalanced. pt is upstream pt label, not proof of pt-PT. pt_br is explicit upstream variety metadata. Content is CC BY-SA, not the MIT code license. No subtitle sentences redistributed.",
+    "status": "approved",
+    "redistribute": true,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "frequencywords-pt": {
+    "license": "CC-BY-SA-4.0",
+    "languages": [
+      "pt"
+    ],
+    "formats": [
+      "frequency"
+    ],
+    "evidence": [
+      "https://github.com/hermitdave/FrequencyWords/blob/master/README.md"
+    ],
+    "attribution": "Hermit Dave, FrequencyWords; derived from OPUS OpenSubtitles 2018 / OpenSubtitles contributors. https://github.com/hermitdave/FrequencyWords ; https://opus.nlpl.eu/OpenSubtitles.php ; https://www.opensubtitles.org/",
+    "notes": "Surface counts, subtitle genre, unbalanced. pt is upstream pt label, not proof of pt-PT. pt_br is explicit upstream variety metadata. Content is CC BY-SA, not the MIT code license. No subtitle sentences redistributed.",
+    "status": "approved",
+    "redistribute": true,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "frequencywords-pt-BR": {
+    "license": "CC-BY-SA-4.0",
+    "languages": [
+      "pt-BR"
+    ],
+    "formats": [
+      "frequency"
+    ],
+    "evidence": [
+      "https://github.com/hermitdave/FrequencyWords/blob/master/README.md"
+    ],
+    "attribution": "Hermit Dave, FrequencyWords; derived from OPUS OpenSubtitles 2018 / OpenSubtitles contributors. https://github.com/hermitdave/FrequencyWords ; https://opus.nlpl.eu/OpenSubtitles.php ; https://www.opensubtitles.org/",
+    "notes": "Surface counts, subtitle genre, unbalanced. pt is upstream pt label, not proof of pt-PT. pt_br is explicit upstream variety metadata. Content is CC BY-SA, not the MIT code license. No subtitle sentences redistributed.",
+    "status": "approved",
+    "redistribute": true,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "frequencywords-ms": {
+    "license": "CC-BY-SA-4.0",
+    "languages": [
+      "ms"
+    ],
+    "formats": [
+      "frequency"
+    ],
+    "evidence": [
+      "https://github.com/hermitdave/FrequencyWords/blob/master/README.md"
+    ],
+    "attribution": "Hermit Dave, FrequencyWords; derived from OPUS OpenSubtitles 2018 / OpenSubtitles contributors. https://github.com/hermitdave/FrequencyWords ; https://opus.nlpl.eu/OpenSubtitles.php ; https://www.opensubtitles.org/",
+    "notes": "Surface counts, subtitle genre, unbalanced. pt is upstream pt label, not proof of pt-PT. pt_br is explicit upstream variety metadata. Content is CC BY-SA, not the MIT code license. No subtitle sentences redistributed.",
+    "status": "approved",
+    "redistribute": true,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "ud-en-pud": {
+    "license": "CC-BY-SA-3.0",
+    "languages": [
+      "en"
+    ],
+    "formats": [
+      "conllu"
+    ],
+    "evidence": [
+      "https://raw.githubusercontent.com/UniversalDependencies/UD_English-PUD/a697bab43d4111073356de0df5802488bca3de7e/LICENSE.txt",
+      "https://raw.githubusercontent.com/UniversalDependencies/UD_English-PUD/a697bab43d4111073356de0df5802488bca3de7e/README.md"
+    ],
+    "attribution": "UD English PUD contributors: Uszkoreit, Hans; Macketanz, Vivien; Burchardt, Aljoscha; Harris, Kim; Marheinecke, Katrin; Petrov, Slav; Kayadelen, Tolga; Attia, Mohammed; Elkahky, Ali; Yu, Zhuoran; Pitler, Emily; Lertpradit, Saran; Kirchner, Jesse; Lambertino, Lorenzo; Popel, Martin; Zeman, Daniel; Manning, Christopher; Schuster, Sebastian; Reddy, Siva. DFKI and Google; McDonald et al. (2013), Universal Dependency Annotation for Multilingual Parsing. https://github.com/UniversalDependencies/UD_English-PUD",
+    "notes": "Use lexical/morphological annotations only; no sentence text exported. Build separately from 4.0 datasets; original license retained.",
+    "status": "approved",
+    "redistribute": true,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "ud-es-ancora": {
+    "license": "CC-BY-4.0",
+    "languages": [
+      "es"
+    ],
+    "formats": [
+      "conllu"
+    ],
+    "evidence": [
+      "https://raw.githubusercontent.com/UniversalDependencies/UD_Spanish-AnCora/3ea1f747220979d91787a6d04b85734a42bf22a4/README.md",
+      "https://raw.githubusercontent.com/UniversalDependencies/UD_Spanish-AnCora/3ea1f747220979d91787a6d04b85734a42bf22a4/LICENSE.txt"
+    ],
+    "attribution": "Taulé, Martí and Recasens (2008), AnCora: Multilevel Annotated Corpora for Catalan and Spanish, LREC. UD conversion: Héctor Martínez Alonso and Daniel Zeman. https://github.com/UniversalDependencies/UD_Spanish-AnCora",
+    "notes": "README has stale GNU wording but v2.9 changelog and current machine-readable metadata specify CC BY 4.0. Current LICENSE must also be archived/checked before locking a new revision. Only token morphology is used, not coreference/semantic roles.",
+    "status": "approved",
+    "redistribute": true,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "ud-pt-bosque": {
+    "license": "CC-BY-SA-4.0",
+    "languages": [
+      "pt"
+    ],
+    "formats": [
+      "conllu"
+    ],
+    "evidence": [
+      "https://raw.githubusercontent.com/UniversalDependencies/UD_Portuguese-Bosque/036da549f7d74034c666c19c04e5150e305fe43d/LICENSE.txt",
+      "https://raw.githubusercontent.com/UniversalDependencies/UD_Portuguese-Bosque/036da549f7d74034c666c19c04e5150e305fe43d/README.md"
+    ],
+    "attribution": "Rademaker, Chalub, Real, Freitas, Bick and de Paiva (2017), Universal Dependencies for Portuguese, Depling, pp.197–206. Floresta Sintá(c)tica / Bosque contributors. https://github.com/UniversalDependencies/UD_Portuguese-Bosque",
+    "notes": "Mixed European CETEMPúblico and Brazilian CETENFolha. Kept as pt until a reviewed sentence-metadata splitter exists.",
+    "status": "approved",
+    "redistribute": true,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "ud-en-gum": {
+    "license": "CC-BY-NC-SA-4.0",
+    "languages": [
+      "en"
+    ],
+    "formats": [
+      "conllu"
+    ],
+    "evidence": [
+      "https://raw.githubusercontent.com/UniversalDependencies/UD_English-GUM/master/LICENSE.txt"
+    ],
+    "attribution": "GUM annotators and individual document authors; source-specific credits required at https://corpling.uis.georgetown.edu/gum/",
+    "notes": "Noncommercial candidate. Document-level attribution has not been implemented; quarantine until credits are resolved. Do not mix with open CC BY-SA releases.",
+    "status": "quarantined",
+    "redistribute": false,
+    "noncommercial": true,
+    "reviewed": "2026-11-19"
+  },
+  "ud-en-ewt": {
+    "license": "CC-BY-SA-4.0-annotations",
+    "languages": [
+      "en"
+    ],
+    "formats": [
+      "conllu"
+    ],
+    "evidence": [
+      "https://raw.githubusercontent.com/UniversalDependencies/UD_English-EWT/master/README.md"
+    ],
+    "attribution": "Stanford University / UD English EWT contributors; underlying LDC text authors.",
+    "notes": "Annotation/database license does not settle underlying text rights. Quarantined for lexical extraction review.",
+    "status": "quarantined",
+    "redistribute": false,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "octanove-c1c2": {
+    "license": "CC-BY-SA-4.0",
+    "languages": [
+      "en"
+    ],
+    "formats": [
+      "cefr"
+    ],
+    "evidence": [
+      "https://raw.githubusercontent.com/openlanguageprofiles/olp-en-cefrj/d4e45b75b38f27b30dfc5c44d8c571aec7e7092f/README.md"
+    ],
+    "attribution": "Octanove Labs, Octanove Vocabulary Profile C1/C2 v1.0, distributed by Open Language Profiles. https://github.com/openlanguageprofiles/olp-en-cefrj",
+    "notes": "Source-asserted C1/C2 only; no A1–B2 coverage. Not official certification or empirically calibrated confidence. Keep original notes to avoid claiming sense-specific alignment.",
+    "status": "approved",
+    "redistribute": true,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "cefr-j": {
+    "license": "LicenseRef-CEFR-J-terms",
+    "languages": [
+      "en"
+    ],
+    "formats": [
+      "cefr"
+    ],
+    "evidence": [
+      "https://raw.githubusercontent.com/openlanguageprofiles/olp-en-cefrj/d4e45b75b38f27b30dfc5c44d8c571aec7e7092f/README.md"
+    ],
+    "attribution": "Yukio Tono / Tono Laboratory, TUFS, CEFR-J Wordlist v1.5.",
+    "notes": "Research/commercial use with citation stated; redistribution grant insufficiently explicit. Local/release ingestion blocked pending clarification.",
+    "status": "quarantined",
+    "redistribute": false,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "wordfreq": {
+    "license": "CC-BY-SA-4.0-data",
+    "languages": [
+      "en",
+      "es",
+      "pt"
+    ],
+    "formats": [],
+    "evidence": [
+      "https://raw.githubusercontent.com/rspeer/wordfreq/master/NOTICE.md"
+    ],
+    "attribution": "Robyn Speer, wordfreq; SUBTLEX authors; Google Books, Leeds Internet Corpus, Wikipedia, ParaCrawl, OPUS OpenSubtitles. See upstream NOTICE for full credits.",
+    "notes": "Apache code differs from data license. Composite frequencies, no pt-BR/PT-PT split; Malay coverage not verified. Surveyed alternative; native package exporter deferred to keep runtime dependency-free.",
+    "status": "quarantined",
+    "redistribute": false,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "ep-spoken": {
+    "license": "CC-BY-SA-4.0",
+    "languages": [
+      "pt-PT"
+    ],
+    "formats": [
+      "ep_frequency"
+    ],
+    "evidence": [
+      "https://raw.githubusercontent.com/professorcdp/EPspokenfrequency/6881814767beba569e11106e8dd49132e9ef51fc/README.md",
+      "https://raw.githubusercontent.com/professorcdp/EPspokenfrequency/6881814767beba569e11106e8dd49132e9ef51fc/LICENSE-DATA"
+    ],
+    "attribution": "Jim Ranalli (Professor Caloiro), European Portuguese Spoken Frequency List; OPUS OpenSubtitles 2018 / OpenSubtitles contributors. https://github.com/professorcdp/EPspokenfrequency",
+    "notes": "Only frequency columns; exclude generated glosses and copied examples. Portugal tag is a noisy source label, not verified origin of every token. Only top5000 shard initially pinned.",
+    "status": "approved",
+    "redistribute": true,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "wordhoard": {
+    "license": "NOASSERTION",
+    "languages": [
+      "en",
+      "es"
+    ],
+    "formats": [],
+    "evidence": [
+      "https://github.com/natema/wordhoard"
+    ],
+    "attribution": "wordhoard",
+    "notes": "Declared CC BY-SA data/MIT code. FrequencyWords content incorrectly labeled MIT in its source table; CEFR estimates unvalidated outside German. Prefer direct upstream ingestion.",
+    "status": "quarantined",
+    "redistribute": false,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "fserb-pt-br": {
+    "license": "NOASSERTION",
+    "languages": [
+      "pt-BR"
+    ],
+    "formats": [],
+    "evidence": [
+      "https://github.com/fserb/pt-br"
+    ],
+    "attribution": "fserb-pt-br",
+    "notes": "Multiple dictionary origins; precise upstream rights and grant not verified.",
+    "status": "quarantined",
+    "redistribute": false,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "community-cefr": {
+    "license": "NOASSERTION",
+    "languages": [
+      "en",
+      "es",
+      "pt"
+    ],
+    "formats": [],
+    "evidence": [
+      "https://github.com/Talhakasikci/cefr-vocabulary-dataset"
+    ],
+    "attribution": "community-cefr",
+    "notes": "README mentions Oxford-derived entries and personal/educational use; no verified downstream redistribution grant.",
+    "status": "quarantined",
+    "redistribute": false,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "cervantes": {
+    "license": "NOASSERTION",
+    "languages": [
+      "es"
+    ],
+    "formats": [],
+    "evidence": [
+      "https://github.com/Heartade/spanish-words-cefr"
+    ],
+    "attribution": "cervantes",
+    "notes": "Scraper author explicitly withholds extracted curriculum data due to redistribution uncertainty. No scraping.",
+    "status": "quarantined",
+    "redistribute": false,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "oxford": {
+    "license": "NOASSERTION",
+    "languages": [
+      "en"
+    ],
+    "formats": [],
+    "evidence": [
+      "https://www.oxfordlearnersdictionaries.com/wordlists/oxford3000-5000"
+    ],
+    "attribution": "oxford",
+    "notes": "Publisher page returned 403. Free PDF access is not verified redistribution permission.",
+    "status": "quarantined",
+    "redistribute": false,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "cambridge-evp": {
+    "license": "NOASSERTION",
+    "languages": [
+      "en"
+    ],
+    "formats": [],
+    "evidence": [
+      "https://www.englishprofile.org/"
+    ],
+    "attribution": "cambridge-evp",
+    "notes": "Reference only; no verified bulk redistribution grant.",
+    "status": "quarantined",
+    "redistribute": false,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "leipzig": {
+    "license": "NOASSERTION",
+    "languages": [
+      "en",
+      "es",
+      "pt",
+      "ms"
+    ],
+    "formats": [],
+    "evidence": [
+      "https://wortschatz.uni-leipzig.de/en/download"
+    ],
+    "attribution": "leipzig",
+    "notes": "Download page blocked by anti-bot challenge; exact corpus/package license not verified. No mirror licenses inferred.",
+    "status": "quarantined",
+    "redistribute": false,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "p-pal": {
+    "license": "NOASSERTION",
+    "languages": [
+      "pt-PT"
+    ],
+    "formats": [],
+    "evidence": [
+      "https://www.psi.uminho.pt/pt/CIPsi/Laboratorios_Investigacao/Psicolinguistica/Paginas/Bases_Lexiais_Estudos_Normativos.aspx"
+    ],
+    "attribution": "p-pal",
+    "notes": "Prior-conversation lead; package access/redistribution rights not verified.",
+    "status": "quarantined",
+    "redistribute": false,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "lexmal-mlp": {
+    "license": "NOASSERTION",
+    "languages": [
+      "ms"
+    ],
+    "formats": [],
+    "evidence": [
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC11289131/"
+    ],
+    "attribution": "lexmal-mlp",
+    "notes": "Research/calibration lead; article access is not permission for the Malay Lexicon Project database. Dataset license not verified.",
+    "status": "quarantined",
+    "redistribute": false,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "ud-ms": {
+    "license": "NOASSERTION",
+    "languages": [
+      "ms"
+    ],
+    "formats": [],
+    "evidence": [
+      "https://github.com/UniversalDependencies"
+    ],
+    "attribution": "ud-ms",
+    "notes": "No Malay treebank found in repository search on review date; Malayalam is a different language. Do not substitute Indonesian or Malayalam.",
+    "status": "quarantined",
+    "redistribute": false,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "synthetic": {
+    "license": "CC0-1.0",
+    "languages": [
+      "en",
+      "es",
+      "pt",
+      "pt-BR",
+      "pt-PT",
+      "ms"
+    ],
+    "formats": [
+      "kaikki",
+      "conllu",
+      "frequency",
+      "cefr"
+    ],
+    "evidence": [
+      "https://creativecommons.org/publicdomain/zero/1.0/"
+    ],
+    "attribution": "LinguaTrack contributors, original synthetic fixtures dedicated under CC0 1.0.",
+    "notes": "Tiny authored fixtures for engineering tests; not source-derived data or pedagogical recommendations.",
+    "status": "approved",
+    "redistribute": true,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "synthetic-lex-en": {
+    "license": "CC0-1.0",
+    "languages": [
+      "en"
+    ],
+    "formats": [
+      "kaikki"
+    ],
+    "evidence": [
+      "https://creativecommons.org/publicdomain/zero/1.0/"
+    ],
+    "attribution": "LinguaTrack contributors, original synthetic fixtures dedicated under CC0 1.0.",
+    "notes": "Tiny authored fixtures for engineering tests; not source-derived data or pedagogical recommendations.",
+    "status": "approved",
+    "redistribute": true,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "synthetic-lex-es": {
+    "license": "CC0-1.0",
+    "languages": [
+      "es"
+    ],
+    "formats": [
+      "kaikki"
+    ],
+    "evidence": [
+      "https://creativecommons.org/publicdomain/zero/1.0/"
+    ],
+    "attribution": "LinguaTrack contributors, original synthetic fixtures dedicated under CC0 1.0.",
+    "notes": "Tiny authored fixtures for engineering tests; not source-derived data or pedagogical recommendations.",
+    "status": "approved",
+    "redistribute": true,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "synthetic-lex-pt": {
+    "license": "CC0-1.0",
+    "languages": [
+      "pt"
+    ],
+    "formats": [
+      "kaikki"
+    ],
+    "evidence": [
+      "https://creativecommons.org/publicdomain/zero/1.0/"
+    ],
+    "attribution": "LinguaTrack contributors, original synthetic fixtures dedicated under CC0 1.0.",
+    "notes": "Tiny authored fixtures for engineering tests; not source-derived data or pedagogical recommendations.",
+    "status": "approved",
+    "redistribute": true,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "synthetic-lex-pt-BR": {
+    "license": "CC0-1.0",
+    "languages": [
+      "pt-BR"
+    ],
+    "formats": [
+      "kaikki"
+    ],
+    "evidence": [
+      "https://creativecommons.org/publicdomain/zero/1.0/"
+    ],
+    "attribution": "LinguaTrack contributors, original synthetic fixtures dedicated under CC0 1.0.",
+    "notes": "Tiny authored fixtures for engineering tests; not source-derived data or pedagogical recommendations.",
+    "status": "approved",
+    "redistribute": true,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "synthetic-lex-pt-PT": {
+    "license": "CC0-1.0",
+    "languages": [
+      "pt-PT"
+    ],
+    "formats": [
+      "kaikki"
+    ],
+    "evidence": [
+      "https://creativecommons.org/publicdomain/zero/1.0/"
+    ],
+    "attribution": "LinguaTrack contributors, original synthetic fixtures dedicated under CC0 1.0.",
+    "notes": "Tiny authored fixtures for engineering tests; not source-derived data or pedagogical recommendations.",
+    "status": "approved",
+    "redistribute": true,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "synthetic-lex-ms": {
+    "license": "CC0-1.0",
+    "languages": [
+      "ms"
+    ],
+    "formats": [
+      "kaikki"
+    ],
+    "evidence": [
+      "https://creativecommons.org/publicdomain/zero/1.0/"
+    ],
+    "attribution": "LinguaTrack contributors, original synthetic fixtures dedicated under CC0 1.0.",
+    "notes": "Tiny authored fixtures for engineering tests; not source-derived data or pedagogical recommendations.",
+    "status": "approved",
+    "redistribute": true,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "synthetic-morph": {
+    "license": "CC0-1.0",
+    "languages": [
+      "en"
+    ],
+    "formats": [
+      "conllu"
+    ],
+    "evidence": [
+      "https://creativecommons.org/publicdomain/zero/1.0/"
+    ],
+    "attribution": "LinguaTrack contributors, original synthetic fixtures dedicated under CC0 1.0.",
+    "notes": "Tiny authored fixtures for engineering tests; not source-derived data or pedagogical recommendations.",
+    "status": "approved",
+    "redistribute": true,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "synthetic-counts": {
+    "license": "CC0-1.0",
+    "languages": [
+      "ms"
+    ],
+    "formats": [
+      "frequency"
+    ],
+    "evidence": [
+      "https://creativecommons.org/publicdomain/zero/1.0/"
+    ],
+    "attribution": "LinguaTrack contributors, original synthetic fixtures dedicated under CC0 1.0.",
+    "notes": "Tiny authored fixtures for engineering tests; not source-derived data or pedagogical recommendations.",
+    "status": "approved",
+    "redistribute": true,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  },
+  "synthetic-anchors": {
+    "license": "CC0-1.0",
+    "languages": [
+      "en"
+    ],
+    "formats": [
+      "cefr"
+    ],
+    "evidence": [
+      "https://creativecommons.org/publicdomain/zero/1.0/"
+    ],
+    "attribution": "LinguaTrack contributors, original synthetic fixtures dedicated under CC0 1.0.",
+    "notes": "Tiny authored fixtures for engineering tests; not source-derived data or pedagogical recommendations.",
+    "status": "approved",
+    "redistribute": true,
+    "noncommercial": false,
+    "reviewed": "2026-11-19"
+  }
+}

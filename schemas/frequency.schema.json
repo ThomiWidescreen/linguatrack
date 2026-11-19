@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ThomiWidescreen/linguatrack-lexicon/schemas/frequency.schema.json",
+  "title": "LinguaTrack frequency",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "language",
+    "schema_version",
+    "provenance",
+    "lemma",
+    "pos",
+    "unit",
+    "count",
+    "rank",
+    "metric",
+    "corpus",
+    "denominator"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "language": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "revision",
+        "sha256",
+        "locator",
+        "license",
+        "url",
+        "confidence",
+        "confidence_basis"
+      ],
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "confidence_basis": {
+          "const": "import_fidelity_heuristic"
+        }
+      }
+    },
+    "lemma": {
+      "type": "string",
+      "minLength": 1
+    },
+    "pos": {
+      "enum": [
+        "ADJ",
+        "ADP",
+        "ADV",
+        "AUX",
+        "CCONJ",
+        "DET",
+        "INTJ",
+        "NOUN",
+        "NUM",
+        "PART",
+        "PRON",
+        "PROPN",
+        "PUNCT",
+        "SCONJ",
+        "SYM",
+        "VERB",
+        "X",
+        null
+      ]
+    },
+    "unit": {
+      "enum": [
+        "surface",
+        "lemma"
+      ]
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "rank": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "metric": {
+      "const": "corpus_count"
+    },
+    "corpus": {
+      "type": "string",
+      "minLength": 1
+    },
+    "denominator": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    }
+  }
+}

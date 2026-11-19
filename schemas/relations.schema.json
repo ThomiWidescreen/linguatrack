@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ThomiWidescreen/linguatrack-lexicon/schemas/relations.schema.json",
+  "title": "LinguaTrack relations",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "language",
+    "schema_version",
+    "provenance",
+    "entry_id",
+    "sense_id",
+    "relation",
+    "target",
+    "target_language",
+    "tags"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "language": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema_version": {
+      "const": "1.0"
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "revision",
+        "sha256",
+        "locator",
+        "license",
+        "url",
+        "confidence",
+        "confidence_basis"
+      ],
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^https://"
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "confidence_basis": {
+          "const": "import_fidelity_heuristic"
+        }
+      }
+    },
+    "entry_id": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "sense_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "relation": {
+      "enum": [
+        "synonyms",
+        "antonyms",
+        "hypernyms",
+        "hyponyms",
+        "holonyms",
+        "meronyms",
+        "derived",
+        "related",
+        "form_of",
+        "alt_of",
+        "translation"
+      ]
+    },
+    "target": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_language": {
+      "type": "string",
+      "minLength": 1
+    },
+    "tags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

@@ -8,3 +8,8 @@ data/
 .coverage
 .pytest_cache/
 catalog/*.local.lock.json
+.env
+.env.*
+!.env.example
+.ruff_cache/
+*.log

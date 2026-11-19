@@ -6,10 +6,20 @@ An open source, nonprofit language-learning project. One repository for the appl
 
 | Location | Purpose | Current status |
 |---|---|---|
-| [`apps/`](apps/) | Application code | Reserved for application development; no application implementation is included yet |
+| [`apps/backend/`](apps/backend/) | FastAPI application | Manual lesson ingestion, OpenAI extraction, PostgreSQL learner evidence, background jobs and Swagger; local development without authentication |
 | [`packages/lexicon/`](packages/lexicon/) | Python lexical ingestion, normalization, dictionary builds and license audit | Implemented with tests, schemas, synthetic samples and CI |
 
 Start with the [lexical pipeline documentation](packages/lexicon/README.md), [source audit](packages/lexicon/docs/SOURCES.md), and [validation report](packages/lexicon/docs/VALIDATION.md).
+
+## Run the backend
+
+Create a root `.env` from [`.env.example`](.env.example) and set `OPENAI_API_KEY`. If `.env` already exists, keep it and add only missing settings. Then run:
+
+```sh
+docker compose up --build -d
+```
+
+Open [Swagger](http://localhost:8001/docs) or [ReDoc](http://localhost:8001/redoc). The local API uses a demo user and has no authentication. See [the backend guide](apps/backend/README.md) for a complete two-lesson walkthrough, tests and implementation limits.
 
 ## Run the lexical pipeline
 

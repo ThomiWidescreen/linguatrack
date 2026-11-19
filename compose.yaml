@@ -1,0 +1,67 @@
+name: linguatrack
+x-backend: &backend
+  build:
+    context: .
+    dockerfile: apps/backend/Dockerfile
+  env_file: .env
+  environment: &environment
+    DATABASE_URL: postgresql+psycopg://linguatrack_app:local_app@db:5432/linguatrack
+    MIGRATION_DATABASE_URL: postgresql+psycopg://linguatrack:local_admin@db:5432/linguatrack
+    REDIS_URL: redis://redis:6379/0
+    ENVIRONMENT: development
+  restart: unless-stopped
+
+services:
+  db:
+    image: pgvector/pgvector:pg17
+    environment:
+      POSTGRES_DB: linguatrack
+      POSTGRES_USER: linguatrack
+      POSTGRES_PASSWORD: local_admin
+    ports: ["127.0.0.1:5433:5432"]
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./apps/backend/docker/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U linguatrack -d linguatrack"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    ports: ["127.0.0.1:6380:6379"]
+    volumes: ["redis_data:/data"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+  migrate:
+    <<: *backend
+    command: ["alembic", "upgrade", "head"]
+    restart: "no"
+    depends_on:
+      db: {condition: service_healthy}
+  api:
+    <<: *backend
+    ports: ["127.0.0.1:8001:8000"]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+      redis: {condition: service_healthy}
+  worker:
+    <<: *backend
+    command: ["dramatiq", "linguatrack.jobs", "--processes", "1", "--threads", "2"]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+      redis: {condition: service_healthy}
+  dispatcher:
+    <<: *backend
+    command: ["linguatrack", "dispatch"]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+      redis: {condition: service_healthy}
+
+volumes:
+  postgres_data:
+  redis_data:

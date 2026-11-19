@@ -1,0 +1,4 @@
+CREATE EXTENSION IF NOT EXISTS vector;
+CREATE ROLE linguatrack_app LOGIN PASSWORD 'local_app' NOSUPERUSER NOBYPASSRLS;
+GRANT CONNECT ON DATABASE linguatrack TO linguatrack_app;
+GRANT USAGE ON SCHEMA public TO linguatrack_app;

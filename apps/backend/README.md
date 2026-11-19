@@ -89,9 +89,17 @@ En reprocess, omitir el campo o enviar `null` hereda el contexto de la revisión
 }
 ```
 
-Se genera otra revisión a partir de la extracción guardada; no se paga otra llamada a OpenAI. Las observaciones anteriores permanecen en el historial, pero solo la publicación vigente contribuye al progreso. La revisión anterior sigue activa mientras se procesa la nueva.
+Se genera otra revisión a partir de la extracción y las comparaciones guardadas, sin repetir esas llamadas. Una publicación anterior a `lexical-v3` puede necesitar su primera comparación contextual. Las observaciones anteriores permanecen en el historial, pero solo la publicación vigente contribuye al progreso. La revisión anterior sigue activa mientras se procesa la nueva.
 
 `POST .../reprocess` con `{"expected_revision":2}` vuelve a extraer el texto original y conserva las correcciones ancladas por concepto/actividad/cita. Si un anclaje cambia, el nuevo run queda `needs_review` con `correction_anchor_changed` y no reemplaza la publicación anterior. En este MVP la reconciliación manual de anclajes cambiados requiere intervención de desarrollo; no hay un botón que ignore correcciones silenciosamente. No se permite editar el texto original de una sesión; un texto corregido se envía como otra clase por ahora.
+
+Para aplicar una nueva política de reconciliación a la extracción publicada, enviar `{"expected_revision":1,"reuse_extraction":true}`. Se reutilizan texto extraído, modelo y procedencia de extracción; se generan comparaciones contextuales nuevas. No permite cambiar los idiomas puente al mismo tiempo, porque ese cambio requiere extraer de nuevo. Puede consumir una llamada de comparación a OpenAI aunque no se repita la extracción.
+
+El reconciliador `lexical-v3` busca primero coincidencias del historial efectivo anterior a la clase, incluso si cambió el POS. Cuando hay cambios de categoría o glosas diferentes, compara candidatos del mismo idioma y lema con sus contextos mediante una salida estructurada de OpenAI. Un cambio de POS no basta para crear otra palabra, y la misma escritura no basta para fusionar homógrafos. Sin identidad respaldada se conserva un provisional marcado para revisión; no se fusionan globalmente los conceptos ni se reescribe evidencia histórica.
+
+Las traducciones/paráfrasis compatibles no se tratan automáticamente como contradicciones. Una glosa conflictiva o incierta aparece en `summary.gloss_conflicts` y activa `review_required`. La evidencia conserva `observed_gloss`, `canonical_gloss`, la relación y el motivo en `provenance`; no se sobreescribe la glosa canónica con el apunte nuevo. `counts-v2` conserva el resultado reportado de un intento, pero no lo cuenta como acierto demostrado mientras su significado requiera revisión.
+
+Las comparaciones se guardan en PostgreSQL antes de publicar: un retry de publicación no repite llamadas ya guardadas. Se comparan hasta 10 candidatos por item y 100 pares por run; superar el límite produce revisión explícita. Las decisiones del modelo son heurísticas auditables, no una validación lingüística certificada ni una comprobación exhaustiva de todas las traducciones. Una clase sin candidatos previos puede conservar una glosa errónea sin detectarla todavía.
 
 Repetir una solicitud con la misma key y payload devuelve los mismos IDs; reutilizar la key con otro payload devuelve 409. Dos clases con texto idéntico y keys distintas son encuentros distintos. Los listados tienen `limit` y cursor `after` (último `id` recibido), en orden por UUID; las páginas de knowledge pueden cambiar después de publicar o reconstruir progreso.
 

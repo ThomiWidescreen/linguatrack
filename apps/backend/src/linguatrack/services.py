@@ -23,6 +23,7 @@ from linguatrack.models import (
     User,
     now,
 )
+from linguatrack.reconciliation import item_key, matched_concept
 from linguatrack.schemas import (
     Accepted,
     CorrectionRequest,
@@ -201,6 +202,8 @@ def reprocess(db, user_id, session_id, body: ReprocessRequest, key):
     payload = body.model_dump(mode="json")
     if body.bridge_languages is None:
         payload.pop("bridge_languages")
+    if not body.reuse_extraction:
+        payload.pop("reuse_extraction")
     cached = idempotent(db, user_id, scope, key, payload)
     if cached:
         return cached
@@ -210,7 +213,18 @@ def reprocess(db, user_id, session_id, body: ReprocessRequest, key):
         raise DomainError(409, "Session revision has changed")
     track = owned(db, Track, lesson.track_id, user_id)
     validate_bridge_languages(track.language_tag, body.bridge_languages or [])
+    previous = None
+    if body.reuse_extraction:
+        previous = db.get(Run, lesson.published_run_id) if lesson.published_run_id else None
+        if previous is None or previous.extraction is None:
+            raise DomainError(409, "No published extraction is available to reuse")
+        if body.bridge_languages is not None and body.bridge_languages != previous.bridge_languages:
+            raise DomainError(422, "Changing bridge context requires a fresh extraction")
     run = new_revision(db, lesson, bridge_languages=body.bridge_languages)
+    if previous:
+        run.extraction = previous.extraction
+        run.model, run.extractor_version = previous.model, previous.extractor_version
+        run.provider_response_id, run.usage = previous.provider_response_id, previous.usage
     return record_request(db, user_id, scope, key, payload, lesson, run)
 
 
@@ -251,6 +265,7 @@ def correct(db, user_id, session_id, body: CorrectionRequest, key):
     run.extractor_version = current.extractor_version
     run.provider_response_id = current.provider_response_id
     run.usage = current.usage
+    run.reconciliation = current.reconciliation
     return record_request(db, user_id, scope, key, payload, lesson, run)
 
 
@@ -338,9 +353,17 @@ def rebuild_knowledge(db: Session, user_id: UUID, track_id: UUID):
     )
     for (concept_id, dimension), observations in grouped.items():
         practice = [o for o in observations if o.activity in PRACTICE and o.actor == "student"]
-        independent = sum(o.correctness == "correct" and o.assistance == "none" for o in practice)
+        independent = sum(
+            o.correctness == "correct"
+            and o.assistance == "none"
+            and not o.provenance.get("meaning_review_required", False)
+            for o in practice
+        )
         assisted = sum(
-            o.correctness == "correct" and o.assistance in {"hint", "full"} for o in practice
+            o.correctness == "correct"
+            and o.assistance in {"hint", "full"}
+            and not o.provenance.get("meaning_review_required", False)
+            for o in practice
         )
         incorrect = sum(o.correctness == "incorrect" for o in practice)
         db.add(
@@ -412,6 +435,7 @@ def publish(db: Session, run: Run):
     concepts = {}
     review = bool(extraction.warnings)
     resolution_warnings = set()
+    gloss_conflicts = {}
     for raw in extraction.items:
         fp = fingerprint(raw)
         patch = patches[fp]
@@ -426,7 +450,74 @@ def publish(db: Session, run: Run):
         if item.language_tag != track.language_tag:
             raise ExtractionFailure("extracted_language_mismatch")
         start, end = span_for(lesson.text, item.quote, item.quote_occurrence)
-        concept, resolution = resolve(db, run.user_id, track.language_tag, item)
+        entry = (run.reconciliation or {}).get("items", {}).get(item_key(raw), {})
+        decision = None
+        meaning_review_required = False
+        if entry:
+            concept, decision = matched_concept(db, run, item, entry)
+        else:
+            concept = None
+        if concept is not None:
+            resolution = "history_contextual_match"
+        elif entry.get("candidates"):
+            # Distinct/uncertain meanings must not fall through to lemma+POS merging.
+            identity = digest(
+                [
+                    str(run.user_id),
+                    track.language_tag,
+                    item.kind,
+                    normalize(item.lemma),
+                    item.pos,
+                    "unresolved",
+                    normalize(item.gloss or ""),
+                ]
+            )
+            advisory_lock(db, f"concept:{identity}")
+            concept = db.scalar(select(Concept).where(Concept.identity_key == identity))
+            if concept is None:
+                concept = Concept(
+                    owner_user_id=run.user_id,
+                    language_tag=track.language_tag,
+                    kind=item.kind,
+                    lemma=item.lemma,
+                    search_key=normalize(item.lemma),
+                    pos=item.pos,
+                    gloss=item.gloss,
+                    identity_key=identity,
+                )
+                db.add(concept)
+                db.flush()
+            resolution = "ambiguous_lexical_identity"
+            review = True
+            meaning_review_required = True
+            resolution_warnings.add(f"Lexical identity requires review: {item.lemma}.")
+        else:
+            concept, resolution = resolve(db, run.user_id, track.language_tag, item)
+        if entry.get("truncated"):
+            review = True
+            resolution_warnings.add("Reconciliation candidate or comparison limit reached.")
+        if (
+            decision
+            and decision["gloss_relation"] in {"conflicting", "uncertain"}
+            and item.gloss
+            and concept.gloss
+            and normalize(item.gloss) != normalize(concept.gloss)
+        ):
+            review = True
+            meaning_review_required = True
+            issue = {
+                "lemma": item.lemma,
+                "concept_id": str(concept.id),
+                "previous_gloss": concept.gloss,
+                "incoming_gloss": item.gloss,
+                "quote": item.quote,
+                "relation": decision["gloss_relation"],
+                "reason": decision["reason"],
+            }
+            gloss_conflicts[digest(issue)] = issue
+            resolution_warnings.add(
+                f"Gloss {decision['gloss_relation']} for {item.lemma}; original meanings preserved."
+            )
         concepts[concept.id] = concept
         review |= resolution == "ambiguous_reference_provisional"
         # Unknown/teacher attribution cannot demonstrate student success.
@@ -464,6 +555,11 @@ def publish(db: Session, run: Run):
                 "confidence_basis": "uncalibrated_extraction_heuristic",
                 "extracted_kind": raw.kind,
                 "extracted_pos": raw.pos,
+                "observed_gloss": raw.gloss,
+                "canonical_gloss": concept.gloss,
+                "gloss_relation": decision["gloss_relation"] if decision else "not_compared",
+                "reconciliation_reason": decision["reason"] if decision else None,
+                "meaning_review_required": meaning_review_required,
                 "human_corrected": bool(patch),
                 "target_language": track.language_tag,
                 "bridge_languages": run.bridge_languages,
@@ -502,9 +598,11 @@ def publish(db: Session, run: Run):
             and o.actor == "student"
             and o.correctness == "correct"
             and o.assistance == "none"
+            and not o.provenance.get("meaning_review_required", False)
             for o in observations.values()
         ),
         "warnings": extraction.warnings + sorted(resolution_warnings),
+        "gloss_conflicts": list(gloss_conflicts.values()),
         "history_basis": "earlier_received_sessions_at_publication",
         "revision": run.revision,
     }

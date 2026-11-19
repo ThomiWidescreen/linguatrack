@@ -38,3 +38,12 @@ El extractor `lesson-v3` distingue el objetivo del track de los idiomas puente o
 - Se verificó un reprocesamiento completo por HTTP y worker, manteniendo la publicación anterior hasta el éxito. El contenido privado usado para esa comprobación no se incorpora al repositorio.
 
 Las pruebas de proveedor son acotadas y separadas de CI. Estos casos no establecen una tasa de precisión ni garantizan cobertura exhaustiva de todo apunte multilingüe.
+
+## Actualización: reconciliación contextual y conflictos de glosa
+
+- 39 pruebas backend aprobadas. Las regresiones cubren cambios de POS con una identidad duplicada preexistente, homógrafos con igual escritura/POS, traducciones entre idiomas puente, conflictos de significado, reutilización de extracción e idempotencia del checkpoint de comparación.
+- Migración `0004` aplicada y `alembic check` sin diferencias pendientes. El run guarda los candidatos, decisiones, razones y metadatos del proveedor antes de publicar.
+- Prueba real mediante HTTP → outbox → worker, reutilizando una extracción publicada y ejecutando solo la nueva comparación contextual: se enlazó una variante de POS al concepto anterior y se señalaron diferencias de glosa para revisión. La proyección efectiva conservó un solo registro para la identidad reconciliada, sin editar observaciones anteriores.
+- El proyector `counts-v2` preserva el resultado reportado de un intento pero excluye aciertos con significado pendiente de revisión de los contadores de demostración.
+
+Las decisiones contextuales son heurísticas de modelo con candidatos acotados. Los conflictos indicados son solicitudes de revisión, no correcciones lingüísticas certificadas. No se publican aquí textos privados ni identificadores de clases usadas para verificar el flujo.

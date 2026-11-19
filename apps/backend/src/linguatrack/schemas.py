@@ -171,6 +171,10 @@ class SessionCreate(BridgeContext):
 
 class ReprocessRequest(StrictModel):
     expected_revision: int = Field(ge=1)
+    reuse_extraction: bool = Field(
+        default=False,
+        description="Reconciliar la extracción publicada sin volver a extraer el texto.",
+    )
     bridge_languages: list[str] | None = Field(
         default=None,
         max_length=5,

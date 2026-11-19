@@ -34,8 +34,8 @@ class Settings(BaseSettings):
     def local_only(self):
         if self.environment == "production":
             raise ValueError("Authentication is not implemented. Use local development only.")
-        if self.lease_seconds <= self.openai_timeout_seconds + 60:
-            raise ValueError("lease_seconds must exceed OpenAI timeout by more than 60 seconds")
+        if self.lease_seconds <= 2 * self.openai_timeout_seconds + 60:
+            raise ValueError("lease_seconds must cover extraction, reconciliation and publication")
         return self
 
 

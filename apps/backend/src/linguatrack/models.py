@@ -86,14 +86,15 @@ class Run(IDMixin, Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=now)
     finished_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     extraction: Mapped[dict | None] = mapped_column(JSONB)
+    reconciliation: Mapped[dict | None] = mapped_column(JSONB)
     summary: Mapped[dict | None] = mapped_column(JSONB)
     review_required: Mapped[bool] = mapped_column(default=False)
     error_code: Mapped[str | None] = mapped_column(String(80))
     model: Mapped[str]
     extractor_version: Mapped[str] = mapped_column(default="lesson-v3")
     bridge_languages: Mapped[list[str]] = mapped_column(JSONB, default=list, server_default="[]")
-    resolver_version: Mapped[str] = mapped_column(default="lexical-v2")
-    projector_version: Mapped[str] = mapped_column(default="counts-v1")
+    resolver_version: Mapped[str] = mapped_column(default="lexical-v3")
+    projector_version: Mapped[str] = mapped_column(default="counts-v2")
     provider_response_id: Mapped[str | None]
     usage: Mapped[dict | None] = mapped_column(JSONB)
     __table_args__ = (
@@ -191,7 +192,7 @@ class Knowledge(IDMixin, Base):
     first_seen: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     last_seen: Mapped[datetime] = mapped_column(DateTime(timezone=True))
     state: Mapped[str]
-    projector_version: Mapped[str] = mapped_column(default="counts-v1")
+    projector_version: Mapped[str] = mapped_column(default="counts-v2")
     __table_args__ = (
         UniqueConstraint("track_id", "concept_id", "dimension"),
         ForeignKeyConstraint(

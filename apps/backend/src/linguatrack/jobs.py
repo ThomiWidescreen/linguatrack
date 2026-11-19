@@ -12,6 +12,7 @@ from linguatrack.config import get_settings
 from linguatrack.db import transaction
 from linguatrack.extraction import ExtractionFailure, Extractor, OpenAIExtractor
 from linguatrack.models import Lesson, Outbox, Run, Track, now
+from linguatrack.reconciliation import OpenAIReconciler, Reconciler, complete, prepare
 from linguatrack.schemas import Extraction
 from linguatrack.services import enqueue, owned, publish
 
@@ -31,7 +32,12 @@ def classify_error(error):
     return "processing_error", True
 
 
-def process_run(user_id: UUID, run_id: UUID, extractor: Extractor | None = None):
+def process_run(
+    user_id: UUID,
+    run_id: UUID,
+    extractor: Extractor | None = None,
+    reconciler: Reconciler | None = None,
+):
     settings = get_settings()
     token = uuid4()
     with transaction(user_id) as db:
@@ -79,6 +85,25 @@ def process_run(user_id: UUID, run_id: UUID, extractor: Extractor | None = None)
                 run.usage = metadata.get("usage", {})
         else:
             Extraction.model_validate(stored)
+        with transaction(user_id) as db:
+            run = db.get(Run, run_id)
+            if run.lease_token != token:
+                return
+            plan = run.reconciliation
+            if plan is None:
+                plan = prepare(db, run)
+        if run.reconciliation is None:
+            metadata = {}
+            if plan["tasks"]:
+                result, metadata = (reconciler or OpenAIReconciler()).compare(plan["tasks"], model)
+                plan = complete(plan, result)
+            plan["provider"] = metadata
+            with transaction(user_id) as db:
+                run = db.scalar(select(Run).where(Run.id == run_id).with_for_update())
+                if run.lease_token != token:
+                    return
+                run.reconciliation = plan
+                run.stage = "reconciled"
         with transaction(user_id) as db:
             run = db.scalar(select(Run).where(Run.id == run_id).with_for_update())
             if run.lease_token != token:
